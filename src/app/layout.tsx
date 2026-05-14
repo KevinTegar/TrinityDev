@@ -26,6 +26,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="dark">
+      <head>
+        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+      </head>
       <body className="bg-background-base text-text-primary font-body antialiased">
         <Navbar />
         <PageTransition>

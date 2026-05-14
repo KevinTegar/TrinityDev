@@ -1,12 +1,27 @@
+import Hero from "@/components/sections/Hero";
+import About from "@/components/sections/About";
+import Services from "@/components/sections/Services";
+import InteractiveDemo from "@/components/sections/InteractiveDemo";
+import PortfolioPreview from "@/components/sections/PortfolioPreview";
+import Statistics from "@/components/sections/Statistics";
+import Testimonials from "@/components/sections/Testimonials";
+import TeamPreview from "@/components/sections/TeamPreview";
+import BlogPreview from "@/components/sections/BlogPreview";
+import CTASection from "@/components/sections/CTASection";
+
 export default function HomePage() {
   return (
-    <div className="min-h-screen flex items-center justify-center">
-      <div className="text-center">
-        <h1 className="text-4xl font-display font-bold text-text-primary mb-4">
-          TrinityDev
-        </h1>
-        <p className="text-text-secondary">Website loading...</p>
-      </div>
-    </div>
+    <>
+      <Hero />
+      <About />
+      <Services />
+      <InteractiveDemo />
+      <PortfolioPreview />
+      <Statistics />
+      <Testimonials />
+      <TeamPreview />
+      <BlogPreview />
+      <CTASection />
+    </>
   );
 }

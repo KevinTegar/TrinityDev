@@ -26,3 +26,6 @@ dist-ssr
 .superpowers/
 .worktrees/
 .claude/
+skills-lock.json
+.next/
+docs/superpowers/*

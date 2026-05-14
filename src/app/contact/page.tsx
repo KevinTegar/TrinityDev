@@ -3,16 +3,11 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { MessageCircle, MapPin, Clock, Send, CheckCircle } from "lucide-react";
 
-export const metadata = {
-  title: "Contact",
-  description: "Start a project with TrinityDev. Free consultation, 24-hour response time.",
-};
-
 const budgetOptions = [
-  "Under $5,000",
-  "$5,000 – $15,000",
-  "$15,000 – $50,000",
-  "$50,000+",
+  "Di bawah Rp 5.000.000",
+  "Rp 5.000.000 – Rp 15.000.000",
+  "Rp 15.000.000 – Rp 50.000.000",
+  "Di atas Rp 50.000.000",
 ];
 
 const projectTypes = [
@@ -74,12 +69,12 @@ export default function ContactPage() {
                 <span className="text-sm font-medium text-text-primary">WhatsApp</span>
               </div>
               <a
-                href="https://wa.me/6281234567890"
+                href="https://wa.me/6289615219160"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-text-secondary hover:text-accent-primary transition-colors text-sm block"
               >
-                +62 812 XXXX XXXX
+                +62 896 1521 9160
               </a>
             </div>
 
@@ -100,7 +95,7 @@ export default function ContactPage() {
             </div>
 
             <a
-              href="https://wa.me/6281234567890"
+              href="https://wa.me/6289615219160"
               target="_blank"
               rel="noopener noreferrer"
               className="glass-card p-6 flex items-center gap-4 hover:border-accent-tertiary transition-colors cursor-pointer"

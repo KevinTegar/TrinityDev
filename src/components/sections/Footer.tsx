@@ -1,3 +1,4 @@
+"use client";
 import Link from "next/link";
 import { Github, Twitter, Linkedin, Instagram } from "lucide-react";
 import { footerLinks } from "@/data/navigation";
@@ -82,7 +83,7 @@ export default function Footer() {
             </h3>
             <ul className="space-y-2">
               <li className="text-sm text-text-secondary">hello@trinitydev.io</li>
-              <li className="text-sm text-text-secondary">+62 812 XXXX XXXX</li>
+              <li className="text-sm text-text-secondary">+62 896 1521 9160</li>
               <li className="text-sm text-text-secondary">Jakarta, Indonesia</li>
             </ul>
             {/* Newsletter */}

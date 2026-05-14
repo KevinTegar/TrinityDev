@@ -40,7 +40,7 @@ export default function CTASection() {
               <Rocket size={16} /> Start a Project
             </Link>
             <Link
-              href="https://wa.me/6281234567890"
+              href="https://wa.me/6289615219160"
               target="_blank"
               rel="noopener noreferrer"
               className="px-8 py-3 text-base border border-border-default text-text-primary hover:border-accent-tertiary hover:bg-accent-tertiary/5 transition-all duration-300 rounded-lg flex items-center gap-2"

@@ -44,7 +44,7 @@ export default function Footer() {
             </h3>
             <ul className="space-y-2">
               {footerLinks.quickLinks.map((link) => (
-                <li key={link.href}>
+                <li key={link.label}>
                   <Link
                     href={link.href}
                     className="text-sm text-text-secondary hover:text-text-primary transition-colors"

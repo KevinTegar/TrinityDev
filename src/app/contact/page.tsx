@@ -3,6 +3,11 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { MessageCircle, MapPin, Clock, Send, CheckCircle } from "lucide-react";
 
+export const metadata = {
+  title: "Contact",
+  description: "Start a project with TrinityDev. Free consultation, 24-hour response time.",
+};
+
 const budgetOptions = [
   "Under $5,000",
   "$5,000 – $15,000",
@@ -134,7 +139,7 @@ export default function ContactPage() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-2">
                     <label className="text-xs font-mono text-text-secondary uppercase tracking-wider">
-                      Your Name
+                      Name
                     </label>
                     <input
                       type="text"

@@ -24,7 +24,7 @@ function Counter({ value, suffix, label, inView }: { value: number; suffix: stri
 }
 
 export default function Statistics() {
-  const { ref, inView } = useInView(0.3);
+  const { ref, inView } = useInView(0.1);
 
   return (
     <section ref={ref} className="py-24 md:py-32 bg-background-base">

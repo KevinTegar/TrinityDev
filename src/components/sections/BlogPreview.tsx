@@ -8,7 +8,7 @@ import { fadeUp, staggerContainer } from "@/lib/animations/framerVariants";
 import { blogPosts } from "@/data/blog";
 
 export default function BlogPreview() {
-  const { ref, inView } = useInView(0.15);
+  const { ref, inView } = useInView(0.05);
 
   return (
     <section ref={ref} className="py-24 md:py-32 bg-background-secondary">
@@ -43,6 +43,7 @@ export default function BlogPreview() {
                       src={post.coverImage}
                       alt={post.title}
                       fill
+                      sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                       className="object-cover transition-transform duration-500 group-hover:scale-105"
                     />
                     <div className="absolute inset-0 bg-background-base/30 group-hover:bg-background-base/50 transition-colors duration-300" />

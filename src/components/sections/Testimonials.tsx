@@ -8,7 +8,7 @@ import { fadeUp } from "@/lib/animations/framerVariants";
 import { testimonials } from "@/data/testimonials";
 
 export default function Testimonials() {
-  const { ref, inView } = useInView(0.2);
+  const { ref, inView } = useInView(0.1);
   const [current, setCurrent] = useState(0);
   const [direction, setDirection] = useState(1);
 
@@ -91,6 +91,7 @@ export default function Testimonials() {
                       src={testimonial.avatar}
                       alt={testimonial.name}
                       fill
+                      sizes="48px"
                       className="object-cover"
                     />
                   </div>

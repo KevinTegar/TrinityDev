@@ -8,7 +8,7 @@ import { fadeUp, staggerContainer } from "@/lib/animations/framerVariants";
 import { team } from "@/data/team";
 
 export default function TeamPreview() {
-  const { ref, inView } = useInView(0.15);
+  const { ref, inView } = useInView(0.05);
 
   return (
     <section ref={ref} className="py-24 md:py-32 bg-background-base">
@@ -42,6 +42,7 @@ export default function TeamPreview() {
                     src={member.avatar}
                     alt={member.name}
                     fill
+                    sizes="96px"
                     className="object-cover transition-transform duration-500 group-hover:scale-110"
                   />
                 </div>

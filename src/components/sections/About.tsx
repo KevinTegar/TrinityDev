@@ -32,7 +32,7 @@ function StatCounter({ value, suffix, label, inView }: { value: number; suffix: 
 }
 
 export default function About() {
-  const { ref, inView } = useInView(0.2);
+  const { ref, inView } = useInView(0.1);
 
   return (
     <section ref={ref} className="py-24 md:py-32 bg-background-secondary relative">

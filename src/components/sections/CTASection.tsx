@@ -6,7 +6,7 @@ import { useInView } from "@/hooks/useInView";
 import { fadeUp } from "@/lib/animations/framerVariants";
 
 export default function CTASection() {
-  const { ref, inView } = useInView(0.1);
+  const { ref, inView } = useInView(0.3);
 
   return (
     <section ref={ref} className="py-24 md:py-32 bg-background-base relative overflow-hidden">

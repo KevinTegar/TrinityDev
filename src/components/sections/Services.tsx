@@ -1,6 +1,5 @@
 "use client";
 import { useState } from "react";
-import Link from "next/link";
 import { motion } from "framer-motion";
 import { Globe, Palette, Smartphone, TrendingUp, ArrowRight } from "lucide-react";
 import { useInView } from "@/hooks/useInView";
@@ -15,7 +14,7 @@ const iconMap: Record<string, React.ReactNode> = {
 };
 
 export default function Services() {
-  const { ref, inView } = useInView(0.1);
+  const { ref, inView } = useInView(0.2);
   const [hoveredId, setHoveredId] = useState<string | null>(null);
 
   return (
@@ -71,27 +70,22 @@ export default function Services() {
                 {/* Features — expand on hover */}
                 <div
                   className={`space-y-2 overflow-hidden transition-all duration-300 ${
-                    hoveredId === service.id
-                      ? "max-h-48 opacity-100"
-                      : "max-h-0 opacity-0"
+                    hoveredId === service.id ? "max-h-48 opacity-100" : "max-h-0 opacity-0"
                   }`}
                 >
                   {service.features.map((feature) => (
-                    <div
-                      key={feature}
-                      className="flex items-center gap-2 text-sm text-text-secondary"
-                    >
+                    <div key={feature} className="flex items-center gap-2 text-sm text-text-secondary">
                       <span className="w-1 h-1 bg-accent-tertiary rounded-full flex-shrink-0" />
                       {feature}
                     </div>
                   ))}
                   <div className="pt-4">
-                    <Link
+                    <a
                       href="/services"
                       className="inline-flex items-center gap-1 text-sm text-accent-primary hover:gap-2 transition-all duration-200 font-mono"
                     >
                       Learn More <ArrowRight size={14} />
-                    </Link>
+                    </a>
                   </div>
                 </div>
               </div>

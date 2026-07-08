@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Navbar from "@/components/sections/Navbar";
 import Footer from "@/components/sections/Footer";
+import PageTransition from "@/components/layout/PageTransition";
 
 export const metadata: Metadata = {
   title: {
@@ -29,9 +30,11 @@ export default function RootLayout({
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
       </head>
       <body className="bg-background-base text-text-primary font-body antialiased">
-          <Navbar />
+        <Navbar />
+        <PageTransition>
           <main>{children}</main>
-          <Footer />
+        </PageTransition>
+        <Footer />
       </body>
     </html>
   );

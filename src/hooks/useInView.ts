@@ -1,10 +1,7 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 
-export function useInView(
-  threshold = 0.05,
-  rootMargin = "0px 0px 200px 0px"
-) {
+export function useInView(threshold = 0.15) {
   const ref = useRef<HTMLElement>(null);
   const [inView, setInView] = useState(false);
 
@@ -19,12 +16,12 @@ export function useInView(
           observer.unobserve(element);
         }
       },
-      { threshold, rootMargin }
+      { threshold }
     );
 
     observer.observe(element);
     return () => observer.disconnect();
-  }, [threshold, rootMargin]);
+  }, [threshold]);
 
   return { ref, inView };
 }

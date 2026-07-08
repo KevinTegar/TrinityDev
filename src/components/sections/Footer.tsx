@@ -93,9 +93,9 @@ export default function Footer() {
                 <input
                   type="email"
                   placeholder="your@email.com"
-                  className="flex-1 min-w-0 px-3 py-2 bg-background-base border border-border-default rounded text-sm text-text-primary placeholder:text-text-tertiary focus:outline-none focus:border-accent-primary transition-colors"
+                  className="flex-1 px-3 py-2 bg-background-base border border-border-default rounded text-sm text-text-primary placeholder:text-text-tertiary focus:outline-none focus:border-accent-primary transition-colors"
                 />
-                <button type="submit" className="btn-glow px-3 py-2 text-xs whitespace-nowrap flex-shrink-0">
+                <button type="submit" className="btn-glow px-3 py-2 text-xs whitespace-nowrap">
                   Subscribe
                 </button>
               </form>

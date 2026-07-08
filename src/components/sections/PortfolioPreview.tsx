@@ -15,7 +15,7 @@ const categoryColors: Record<string, string> = {
 };
 
 export default function PortfolioPreview() {
-  const { ref, inView } = useInView(0.05);
+  const { ref, inView } = useInView(0.15);
 
   return (
     <section ref={ref} className="py-24 md:py-32 bg-background-base">
@@ -58,7 +58,6 @@ export default function PortfolioPreview() {
                       src={project.thumbnail}
                       alt={project.title}
                       fill
-                      sizes="(max-width: 768px) 100vw, 50vw"
                       className="object-cover transition-transform duration-500 group-hover:scale-105"
                     />
                     {/* Overlay on hover */}

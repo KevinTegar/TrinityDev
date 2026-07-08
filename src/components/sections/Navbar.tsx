@@ -1,7 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/cn";
 import { navLinks } from "@/data/navigation";
@@ -12,15 +11,12 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const progress = useScrollProgress();
-  const pathname = usePathname();
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
-  const isActive = (href: string) => pathname.startsWith(href);
 
   return (
     <>
@@ -55,29 +51,20 @@ export default function Navbar() {
               <Link
                 key={link.href}
                 href={link.href}
-                className={cn(
-                  "text-sm font-medium transition-colors duration-200 relative group",
-                  isActive(link.href)
-                    ? "text-text-primary"
-                    : "text-text-secondary hover:text-text-primary"
-                )}
+                className="text-sm font-medium text-text-secondary hover:text-text-primary transition-colors duration-200 relative group"
               >
                 {link.label}
-                <span
-                  className={cn(
-                    "absolute -bottom-1 left-1/2 h-[1px] bg-accent-primary transition-all duration-300 -translate-x-1/2",
-                    isActive(link.href)
-                      ? "w-full"
-                      : "w-0 group-hover:w-full"
-                  )}
-                />
+                <span className="absolute -bottom-1 left-1/2 w-0 h-[1px] bg-accent-primary group-hover:w-full transition-all duration-300 -translate-x-1/2" />
               </Link>
             ))}
           </div>
 
           {/* CTA */}
           <div className="hidden md:flex items-center gap-4">
-            <Link href="/contact" className="btn-glow px-5 py-2 text-sm">
+            <Link
+              href="/contact"
+              className="btn-glow px-5 py-2 text-sm"
+            >
               Start Project
             </Link>
           </div>
@@ -111,12 +98,7 @@ export default function Navbar() {
               >
                 <Link
                   href={link.href}
-                  className={cn(
-                    "text-2xl font-display font-bold transition-colors",
-                    isActive(link.href)
-                      ? "text-accent-primary"
-                      : "text-text-primary"
-                  )}
+                  className="text-2xl font-display font-bold text-text-primary"
                   onClick={() => setMobileOpen(false)}
                 >
                   {link.label}

@@ -76,9 +76,11 @@ export default function Footer() {
       <div
         aria-hidden="true"
         data-skew
-        className="pointer-events-none -mb-[5vw] translate-y-[24%] select-none whitespace-nowrap font-display text-[14.5vw] font-medium uppercase leading-none tracking-[-0.02em]"
+        className="pointer-events-none flex select-none justify-between pb-3 pt-10 font-display text-[11vw] font-medium uppercase leading-[0.85]"
       >
-        {SITE.wordmark}
+        {SITE.wordmark.split("").map((letter, i) => (
+          <span key={i}>{letter}</span>
+        ))}
       </div>
     </footer>
   );

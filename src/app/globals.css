@@ -83,3 +83,14 @@
     animation: none;
   }
 }
+
+/* Blinking typewriter caret (Manifesto) */
+.type-caret {
+  animation: caret-blink 0.9s steps(2, start) infinite;
+}
+
+@keyframes caret-blink {
+  50% {
+    opacity: 0;
+  }
+}

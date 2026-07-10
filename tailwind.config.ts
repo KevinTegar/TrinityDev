@@ -1,91 +1,30 @@
 import type { Config } from "tailwindcss";
 
 const config: Config = {
-  content: [
-    "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
-  ],
+  content: ["./src/**/*.{ts,tsx}"],
   theme: {
     extend: {
       colors: {
-        background: {
-          base: "#050508",
-          secondary: "#0d0d12",
-          elevated: "#1a1a24",
-        },
-        accent: {
-          primary: "#60A5FA",
-          secondary: "#818CF8",
-          tertiary: "#34D399",
-          quaternary: "#F472B6",
-        },
-        text: {
-          primary: "#F8FAFC",
-          secondary: "#94A3B8",
-          tertiary: "#64748B",
-        },
-        border: {
-          default: "#1a1a24",
-          hover: "rgba(96, 165, 250, 0.19)",
-        },
+        ink: "#111110",
+        paper: "#F2EFE9",
+        vermilion: "#E8390E",
       },
       fontFamily: {
-        display: ["Space Grotesk", "system-ui", "sans-serif"],
-        mono: ["JetBrains Mono", "monospace"],
-        body: ["Inter", "system-ui", "sans-serif"],
+        display: ["var(--font-clash)", "sans-serif"],
+        body: ["var(--font-general)", "sans-serif"],
+        serif: ["var(--font-instrument)", "serif"],
+        mono: ["var(--font-jetbrains)", "monospace"],
       },
-      spacing: {
-        1: "4px",
-        2: "8px",
-        3: "12px",
-        4: "16px",
-        5: "20px",
-        6: "24px",
-        8: "32px",
-        10: "40px",
-        12: "48px",
-        16: "64px",
-        20: "80px",
-        24: "96px",
-        32: "128px",
-      },
-      borderRadius: {
-        DEFAULT: "8px",
-        lg: "16px",
-      },
-      boxShadow: {
-        glow: "0 4px 20px rgba(96, 165, 250, 0.25)",
-        "glow-strong": "0 6px 30px rgba(96, 165, 250, 0.4)",
-        card: "0 0 30px rgba(96, 165, 250, 0.06)",
-      },
-      backgroundImage: {
-        "gradient-primary": "linear-gradient(135deg, #60A5FA, #818CF8)",
-        "gradient-dark": "linear-gradient(135deg, #0d0d12, #1a1a24)",
-      },
-      animation: {
-        "fade-up": "fadeUp 0.8s ease-out forwards",
-        "fade-in": "fadeIn 0.5s ease-out forwards",
-        "counter": "counter 2s ease-out forwards",
-        "glow-pulse": "glowPulse 2s ease-in-out infinite",
-      },
-      keyframes: {
-        fadeUp: {
-          "0%": { opacity: "0", transform: "translateY(40px)" },
-          "100%": { opacity: "1", transform: "translateY(0)" },
-        },
-        fadeIn: {
-          "0%": { opacity: "0" },
-          "100%": { opacity: "1" },
-        },
-        glowPulse: {
-          "0%, 100%": { opacity: "0.4" },
-          "50%": { opacity: "1" },
-        },
+      fontSize: {
+        "display-2xl": ["clamp(3.25rem, 11vw, 10rem)", { lineHeight: "0.92", letterSpacing: "-0.02em" }],
+        "display-xl": ["clamp(2.75rem, 7.5vw, 6.5rem)", { lineHeight: "0.95", letterSpacing: "-0.02em" }],
+        "display-lg": ["clamp(1.9rem, 4.5vw, 3.6rem)", { lineHeight: "1.05", letterSpacing: "-0.01em" }],
+        "display-md": ["clamp(1.4rem, 2.6vw, 2.1rem)", { lineHeight: "1.15" }],
+        meta: ["0.6875rem", { lineHeight: "1.4", letterSpacing: "0.14em" }],
       },
     },
   },
-  plugins: [require("@tailwindcss/typography")],
+  plugins: [],
 };
 
 export default config;

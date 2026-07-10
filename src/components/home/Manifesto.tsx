@@ -56,11 +56,16 @@ export default function Manifesto() {
           ease: "none",
           duration: (chars.length - 1) * STEP,
           onUpdate: () => {
-            const char = chars[Math.round(cursor.i)];
+            const idx = Math.min(chars.length - 1, Math.max(0, Math.round(cursor.i)));
+            const char = chars[idx];
             if (!char) return;
+            // Rects, not offsetLeft: SplitText's word wrappers are positioned,
+            // so offsets are word-relative and would pin the caret to word one.
+            const pRect = el.getBoundingClientRect();
+            const cRect = char.getBoundingClientRect();
             gsap.set(caret, {
-              x: char.offsetLeft + char.offsetWidth + 2,
-              y: char.offsetTop,
+              x: cRect.right - pRect.left + 2,
+              y: cRect.top - pRect.top,
               autoAlpha: tl.progress() < 1 && tl.progress() > 0 ? 1 : 0,
             });
           },

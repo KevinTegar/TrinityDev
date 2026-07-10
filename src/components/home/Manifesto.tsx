@@ -36,9 +36,9 @@ export default function Manifesto() {
         scrollTrigger: {
           trigger: section,
           start: "top top",
-          end: "+=160%",
+          end: "+=280%",
           pin: true,
-          scrub: 0.7,
+          scrub: 1,
         },
       });
 

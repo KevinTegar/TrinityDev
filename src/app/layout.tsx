@@ -1,40 +1,24 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
+import { clash, general, instrument, jetbrains } from "@/lib/fonts";
+import { SITE } from "@/data/site";
 import "./globals.css";
-import Navbar from "@/components/sections/Navbar";
-import Footer from "@/components/sections/Footer";
-import PageTransition from "@/components/layout/PageTransition";
 
 export const metadata: Metadata = {
-  title: {
-    default: "TrinityDev — We Build Exceptional Digital Experiences",
-    template: "%s | TrinityDev",
-  },
-  description:
-    "TrinityDev is a web development agency based in Indonesia, specializing in full-stack web development, UI/UX design, mobile apps, and digital marketing.",
-  openGraph: {
-    title: "TrinityDev — We Build Exceptional Digital Experiences",
-    description:
-      "TrinityDev is a web development agency based in Indonesia.",
-    type: "website",
-  },
+  metadataBase: new URL(SITE.url),
+  title: { default: `${SITE.name} — Digital Studio`, template: `%s — ${SITE.name}` },
+  description: SITE.description,
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export const viewport: Viewport = { themeColor: "#111110" };
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className="dark">
-      <head>
-        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-      </head>
-      <body className="bg-background-base text-text-primary font-body antialiased">
-        <Navbar />
-        <PageTransition>
-          <main>{children}</main>
-        </PageTransition>
-        <Footer />
+    <html
+      lang="en"
+      className={`${clash.variable} ${general.variable} ${instrument.variable} ${jetbrains.variable}`}
+    >
+      <body className="font-body">
+        <main id="main">{children}</main>
       </body>
     </html>
   );

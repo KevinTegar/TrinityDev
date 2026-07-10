@@ -28,16 +28,16 @@ export function TransitionProvider({ children }: { children: React.ReactNode }) 
         router.push(href);
         return;
       }
+      const panels = curtain.querySelectorAll("[data-curtain-panel]");
       coveredRef.current = true;
       gsap
-        .timeline()
-        .set(curtain, { yPercent: 100, autoAlpha: 1 })
-        .to(curtain, {
-          yPercent: 0,
-          duration: 0.55,
-          ease: EASE.inOut,
-          onComplete: () => router.push(href),
-        });
+        .timeline({ onComplete: () => router.push(href) })
+        .set(curtain, { autoAlpha: 1 })
+        .fromTo(
+          panels,
+          { yPercent: 100 },
+          { yPercent: 0, duration: 0.5, ease: EASE.inOut, stagger: 0.06 }
+        );
     },
     [pathname, router]
   );
@@ -48,13 +48,12 @@ export function TransitionProvider({ children }: { children: React.ReactNode }) 
     coveredRef.current = false;
     scrollToTop();
     ScrollTrigger.refresh();
-    gsap.to(curtain, {
-      yPercent: -100,
-      duration: 0.7,
-      ease: EASE.inOut,
-      delay: 0.1,
-      onComplete: () => gsap.set(curtain, { yPercent: 100, autoAlpha: 0 }),
-    });
+    const panels = curtain.querySelectorAll("[data-curtain-panel]");
+    gsap
+      .timeline({ delay: 0.1 })
+      .to(panels, { yPercent: -100, duration: 0.6, ease: EASE.inOut, stagger: 0.06 })
+      .set(curtain, { autoAlpha: 0 })
+      .set(panels, { yPercent: 100 });
   }, [pathname]);
 
   return (
@@ -63,8 +62,12 @@ export function TransitionProvider({ children }: { children: React.ReactNode }) 
       <div
         ref={curtainRef}
         aria-hidden="true"
-        className="pointer-events-none fixed inset-0 z-[80] bg-ink opacity-0"
-      />
+        className="pointer-events-none fixed inset-0 z-[80] flex opacity-0"
+      >
+        {[0, 1, 2, 3].map((i) => (
+          <div key={i} data-curtain-panel className="h-full flex-1 bg-ink" />
+        ))}
+      </div>
     </TransitionContext.Provider>
   );
 }

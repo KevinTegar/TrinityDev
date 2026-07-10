@@ -1,14 +1,29 @@
 "use client";
 
 import Image from "next/image";
+import dynamic from "next/dynamic";
 import { useEffect, useRef, useState } from "react";
 import type { Project } from "@/data/projects";
 import { TransitionLink } from "@/components/global/PageTransition";
 import { gsap, MOTION_OK, POINTER_FINE } from "@/lib/motion";
 
+const DistortedPreview = dynamic(() => import("./DistortedPreview"), { ssr: false });
+
 export default function WorkList({ projects }: { projects: Project[] }) {
   const previewRef = useRef<HTMLDivElement>(null);
+  const veloRef = useRef(0);
+  const lastXRef = useRef<number | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
+  const [useWebgl, setUseWebgl] = useState(false);
+
+  useEffect(() => {
+    const supported =
+      window.matchMedia(MOTION_OK).matches &&
+      window.matchMedia(POINTER_FINE).matches &&
+      window.matchMedia("(min-width: 768px)").matches &&
+      !!document.createElement("canvas").getContext("webgl2");
+    setUseWebgl(supported);
+  }, []);
 
   useEffect(() => {
     const el = previewRef.current;
@@ -21,6 +36,10 @@ export default function WorkList({ projects }: { projects: Project[] }) {
       const onMove = (e: PointerEvent) => {
         xTo(e.clientX - 144);
         yTo(e.clientY - 108);
+        if (lastXRef.current !== null) {
+          veloRef.current += e.clientX - lastXRef.current;
+        }
+        lastXRef.current = e.clientX;
       };
       window.addEventListener("pointermove", onMove);
       return () => window.removeEventListener("pointermove", onMove);
@@ -69,8 +88,14 @@ export default function WorkList({ projects }: { projects: Project[] }) {
         aria-hidden="true"
         className="pointer-events-none fixed left-0 top-0 z-40 hidden aspect-[4/3] w-72 overflow-hidden opacity-0 md:block"
       >
-        {preview && (
-          <Image src={preview} alt="" fill sizes="288px" className="object-cover" />
+        {useWebgl ? (
+          <DistortedPreview
+            src={preview}
+            sources={projects.map((p) => p.cover)}
+            veloRef={veloRef}
+          />
+        ) : (
+          preview && <Image src={preview} alt="" fill sizes="288px" className="object-cover" />
         )}
       </div>
     </div>

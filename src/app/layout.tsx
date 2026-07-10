@@ -1,6 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import { clash, general, instrument, jetbrains } from "@/lib/fonts";
 import { SITE } from "@/data/site";
+import SmoothScroll from "@/components/global/SmoothScroll";
+import WorldColor from "@/components/global/WorldColor";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -19,6 +21,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     >
       <body className="font-body">
         <main id="main">{children}</main>
+        <SmoothScroll />
+        <WorldColor />
       </body>
     </html>
   );

@@ -8,6 +8,8 @@ import SmoothScroll from "@/components/global/SmoothScroll";
 import WorldColor from "@/components/global/WorldColor";
 import Preloader from "@/components/global/Preloader";
 import Cursor from "@/components/global/Cursor";
+import SkewOnScroll from "@/components/global/SkewOnScroll";
+import Grain from "@/components/global/Grain";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -53,6 +55,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </TransitionProvider>
         <SmoothScroll />
         <WorldColor />
+        <SkewOnScroll />
+        <Grain />
         <Cursor />
       </body>
     </html>

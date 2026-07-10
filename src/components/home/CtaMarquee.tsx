@@ -5,7 +5,7 @@ import { TransitionLink } from "@/components/global/PageTransition";
 export default function CtaMarquee() {
   return (
     <section data-world="ink" className="py-28 md:py-40">
-      <Marquee duration={28} className="border-y hairline py-6">
+      <Marquee speed={0.9} className="border-y hairline py-6">
         <span className="px-6 font-display text-display-xl font-medium uppercase">
           Let&apos;s build something rare
         </span>

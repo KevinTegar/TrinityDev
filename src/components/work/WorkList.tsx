@@ -44,7 +44,7 @@ export default function WorkList({ projects }: { projects: Project[] }) {
     <div>
       <ul onMouseLeave={() => setPreview(null)}>
         {projects.map((project, i) => (
-          <li key={project.slug} className="border-t hairline last:border-b">
+          <li key={project.slug} data-skew className="border-t hairline last:border-b">
             <TransitionLink
               href={`/work/${project.slug}`}
               data-cursor="view"

@@ -75,6 +75,7 @@ export default function Footer() {
 
       <div
         aria-hidden="true"
+        data-skew
         className="pointer-events-none -mb-[5vw] translate-y-[24%] select-none whitespace-nowrap font-display text-[14.5vw] font-medium uppercase leading-none tracking-[-0.02em]"
       >
         {SITE.wordmark}

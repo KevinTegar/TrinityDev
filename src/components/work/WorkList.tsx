@@ -1,12 +1,44 @@
 "use client";
 
-import { useState } from "react";
+import Image from "next/image";
+import { useEffect, useRef, useState } from "react";
 import type { Project } from "@/data/projects";
 import { TransitionLink } from "@/components/global/PageTransition";
-import ImageTrail from "@/components/work/ImageTrail";
+import { gsap, MOTION_OK, POINTER_FINE } from "@/lib/motion";
 
 export default function WorkList({ projects }: { projects: Project[] }) {
+  const previewRef = useRef<HTMLDivElement>(null);
   const [preview, setPreview] = useState<string | null>(null);
+
+  useEffect(() => {
+    const el = previewRef.current;
+    if (!el) return;
+
+    const mm = gsap.matchMedia();
+    mm.add(`${MOTION_OK} and ${POINTER_FINE}`, () => {
+      const xTo = gsap.quickTo(el, "x", { duration: 0.5, ease: "power3.out" });
+      const yTo = gsap.quickTo(el, "y", { duration: 0.5, ease: "power3.out" });
+      const onMove = (e: PointerEvent) => {
+        xTo(e.clientX - 144);
+        yTo(e.clientY - 108);
+      };
+      window.addEventListener("pointermove", onMove);
+      return () => window.removeEventListener("pointermove", onMove);
+    });
+
+    return () => mm.revert();
+  }, []);
+
+  useEffect(() => {
+    if (previewRef.current) {
+      gsap.to(previewRef.current, {
+        autoAlpha: preview ? 1 : 0,
+        scale: preview ? 1 : 0.92,
+        duration: 0.35,
+        ease: "power3.out",
+      });
+    }
+  }, [preview]);
 
   return (
     <div>
@@ -32,7 +64,15 @@ export default function WorkList({ projects }: { projects: Project[] }) {
           </li>
         ))}
       </ul>
-      <ImageTrail src={preview} sources={projects.map((p) => p.cover)} />
+      <div
+        ref={previewRef}
+        aria-hidden="true"
+        className="pointer-events-none fixed left-0 top-0 z-40 hidden aspect-[4/3] w-72 overflow-hidden opacity-0 md:block"
+      >
+        {preview && (
+          <Image src={preview} alt="" fill sizes="288px" className="object-cover" />
+        )}
+      </div>
     </div>
   );
 }

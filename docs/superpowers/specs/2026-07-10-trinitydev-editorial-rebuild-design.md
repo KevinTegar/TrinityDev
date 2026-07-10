@@ -104,6 +104,18 @@ src/
 - Animasi hanya `transform`/`opacity`; `will-change` disiplin
 - SEO: metadata + OG image sesuai brand baru
 
+## Addendum 2026-07-10 — "Wow Motion Layer" (disetujui user)
+
+Setelah rebuild awal, user meminta motion yang lebih immersive. Tiga paket disetujui sekaligus (A+B+C):
+
+**A — Kinetic Editorial**: velocity skew pada `[data-skew]` (baris Work, wordmark footer) via `SkewOnScroll` + `lib/motion/velocity.ts`; hero reveal per-karakter (SplitText `lines,chars` + mask, menunggu `document.fonts.ready`) + scale-out scrub saat scroll; `Marquee` jadi velocity-reactive (scroll-up membalik arah); film grain global (`Grain` + `.grain` CSS, SVG feTurbulence, z-60); menu overlay & page transition memakai panel kolom berjeda (3 panel menu, 4 panel curtain).
+
+**B — Scroll Cinema**: Manifesto ter-pin 120% dengan word-scrub + swell; Capabilities berubah dari accordion menjadi **panel horizontal ter-pin** (desktop + motion-ok saja — mobile/reduced-motion/no-JS tetap stacked list, gaya horizontal hanya di-set via gsap.matchMedia); cover case study `scrubZoom` 1.3×→rest di `ImageReveal`.
+
+**C — Aksen WebGL**: preview hover di daftar Work di-render `DistortedPreview` (**ogl**, bukan three.js) — transisi ripple antar cover + bulge mengikuti kecepatan kursor; dimuat via `next/dynamic` hanya bila WebGL2 + pointer fine + md+ + motion-ok; selain itu fallback `next/image` biasa.
+
+Guardrail tidak berubah: semua motion di dalam `gsap.matchMedia(MOTION_OK)`, konten selalu terlihat tanpa JS, transform/opacity saja.
+
 ## Verifikasi
 
 1. `npm run build` + `npm run lint` bersih

@@ -8,9 +8,11 @@ type Props = {
   children: React.ReactNode;
   className?: string;
   parallax?: number;
+  /** Cinematic entrance: image scrubs from 1.3× down to rest while scrolling into view. */
+  scrubZoom?: boolean;
 };
 
-export default function ImageReveal({ children, className, parallax = 0 }: Props) {
+export default function ImageReveal({ children, className, parallax = 0, scrubZoom = false }: Props) {
   const outerRef = useRef<HTMLDivElement>(null);
   const innerRef = useRef<HTMLDivElement>(null);
 
@@ -23,39 +25,76 @@ export default function ImageReveal({ children, className, parallax = 0 }: Props
     const restScale = parallax > 0 ? 1.08 : 1;
     const mm = gsap.matchMedia();
     mm.add(MOTION_OK, () => {
-      const reveal = gsap.timeline({
-        scrollTrigger: { trigger: outer, start: "top 85%", once: true },
-      });
-      reveal
-        .fromTo(
-          outer,
-          { clipPath: "inset(100% 0% 0% 0%)" },
-          { clipPath: "inset(0% 0% 0% 0%)", duration: 1.1, ease: EASE.inOut }
-        )
-        .fromTo(inner, { scale: 1.15 }, { scale: restScale, duration: 1.1, ease: EASE.inOut }, 0);
+      const tweens: gsap.core.Tween[] = [];
 
-      let drift: gsap.core.Tween | undefined;
-      if (parallax > 0) {
-        drift = gsap.fromTo(
-          inner,
-          { yPercent: -parallax },
-          {
-            yPercent: parallax,
-            ease: "none",
-            scrollTrigger: { trigger: outer, start: "top bottom", end: "bottom top", scrub: true },
-          }
+      const clip = gsap.fromTo(
+        outer,
+        { clipPath: "inset(100% 0% 0% 0%)" },
+        {
+          clipPath: "inset(0% 0% 0% 0%)",
+          duration: 1.1,
+          ease: EASE.inOut,
+          scrollTrigger: { trigger: outer, start: "top 85%", once: true },
+        }
+      );
+      tweens.push(clip);
+
+      if (scrubZoom) {
+        tweens.push(
+          gsap.fromTo(
+            inner,
+            { scale: 1.3 },
+            {
+              scale: restScale,
+              ease: "none",
+              scrollTrigger: { trigger: outer, start: "top 95%", end: "top 15%", scrub: true },
+            }
+          )
+        );
+      } else {
+        tweens.push(
+          gsap.fromTo(
+            inner,
+            { scale: 1.15 },
+            {
+              scale: restScale,
+              duration: 1.1,
+              ease: EASE.inOut,
+              scrollTrigger: { trigger: outer, start: "top 85%", once: true },
+            }
+          )
         );
       }
+
+      if (parallax > 0) {
+        tweens.push(
+          gsap.fromTo(
+            inner,
+            { yPercent: -parallax },
+            {
+              yPercent: parallax,
+              ease: "none",
+              scrollTrigger: {
+                trigger: outer,
+                start: "top bottom",
+                end: "bottom top",
+                scrub: true,
+              },
+            }
+          )
+        );
+      }
+
       return () => {
-        reveal.scrollTrigger?.kill();
-        reveal.kill();
-        drift?.scrollTrigger?.kill();
-        drift?.kill();
+        tweens.forEach((t) => {
+          t.scrollTrigger?.kill();
+          t.kill();
+        });
       };
     });
 
     return () => mm.revert();
-  }, [parallax]);
+  }, [parallax, scrubZoom]);
 
   return (
     <div ref={outerRef} className={cn("relative overflow-hidden", className)}>

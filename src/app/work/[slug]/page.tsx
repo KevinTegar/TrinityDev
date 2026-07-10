@@ -39,7 +39,7 @@ export default function CaseStudyPage({ params }: Props) {
       </section>
 
       <section data-world="paper" className="px-4 py-16 md:px-10 md:py-24">
-        <ImageReveal className="aspect-[16/10] w-full" parallax={6}>
+        <ImageReveal className="aspect-[16/10] w-full" parallax={6} scrubZoom>
           <Image
             src={project.cover}
             alt={`${project.title} — cover visual`}

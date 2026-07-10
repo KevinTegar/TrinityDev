@@ -6,6 +6,8 @@ import Nav from "@/components/global/Nav";
 import Footer from "@/components/global/Footer";
 import SmoothScroll from "@/components/global/SmoothScroll";
 import WorldColor from "@/components/global/WorldColor";
+import Preloader from "@/components/global/Preloader";
+import Cursor from "@/components/global/Cursor";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -43,12 +45,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           Skip to content
         </a>
         <TransitionProvider>
+          <Preloader />
           <Nav />
           <main id="main">{children}</main>
           <Footer />
         </TransitionProvider>
         <SmoothScroll />
         <WorldColor />
+        <Cursor />
       </body>
     </html>
   );

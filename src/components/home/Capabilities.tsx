@@ -1,59 +1,103 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef } from "react";
 import { capabilities } from "@/data/capabilities";
+import { gsap, MOTION_OK } from "@/lib/motion";
 
+/**
+ * Pinned horizontal scene on desktop: the section locks and the three
+ * discipline panels slide sideways with the scroll. On mobile, touch,
+ * reduced motion, or without JS it renders as a plain stacked list —
+ * the horizontal styles are only applied inside the matchMedia scope.
+ */
 export default function Capabilities() {
-  const [open, setOpen] = useState(0);
+  const sectionRef = useRef<HTMLElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const section = sectionRef.current;
+    const track = trackRef.current;
+    if (!section || !track) return;
+
+    const mm = gsap.matchMedia();
+    mm.add(`${MOTION_OK} and (min-width: 768px)`, () => {
+      const panels = track.querySelectorAll("[data-caps-panel]");
+
+      gsap.set(section, {
+        height: "100svh",
+        display: "flex",
+        flexDirection: "column",
+        overflow: "hidden",
+        paddingBottom: 0,
+      });
+      gsap.set(track, {
+        flexDirection: "row",
+        flexWrap: "nowrap",
+        flexGrow: 1,
+        minHeight: 0,
+      });
+      gsap.set(panels, {
+        width: "62vw",
+        height: "100%",
+        flexShrink: 0,
+        borderTopWidth: 0,
+        borderLeftWidth: "1px",
+      });
+
+      const distance = () => track.scrollWidth - window.innerWidth;
+      const tween = gsap.to(track, {
+        x: () => -distance(),
+        ease: "none",
+        scrollTrigger: {
+          trigger: section,
+          start: "top top",
+          end: () => `+=${distance()}`,
+          pin: true,
+          scrub: true,
+          invalidateOnRefresh: true,
+        },
+      });
+
+      return () => {
+        tween.scrollTrigger?.kill();
+        tween.kill();
+      };
+    });
+
+    return () => mm.revert();
+  }, []);
 
   return (
-    <section data-world="paper" className="px-4 pb-32 md:px-10 md:pb-48">
-      <p className="mb-10 font-mono text-meta uppercase">(03) — Capabilities</p>
-      <ul>
-        {capabilities.map((cap, i) => {
-          const isOpen = open === i;
-          return (
-            <li key={cap.index} className="border-t hairline last:border-b">
-              <button
-                type="button"
-                onClick={() => setOpen(isOpen ? -1 : i)}
-                aria-expanded={isOpen}
-                aria-controls={`cap-panel-${cap.index}`}
-                className="grid w-full grid-cols-[3.5rem_1fr_auto] items-baseline gap-3 py-7 text-left md:gap-8"
-              >
-                <span className="font-mono text-meta text-vermilion">{cap.index}</span>
-                <span className="font-display text-display-md font-medium uppercase">
-                  {cap.title}
-                </span>
-                <span
-                  aria-hidden="true"
-                  className={`font-mono text-meta transition-transform duration-500 ${isOpen ? "rotate-45" : ""}`}
-                >
-                  +
-                </span>
-              </button>
-              <div
-                id={`cap-panel-${cap.index}`}
-                className="grid transition-[grid-template-rows] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none"
-                style={{ gridTemplateRows: isOpen ? "1fr" : "0fr" }}
-              >
-                <div className="overflow-hidden">
-                  <div className="grid gap-6 pb-8 pl-[3.5rem] md:grid-cols-2 md:gap-8">
-                    <p className="max-w-md text-sm leading-relaxed opacity-80">{cap.description}</p>
-                    <ul className="space-y-2">
-                      {cap.items.map((item) => (
-                        <li key={item} className="border-b hairline pb-2 font-mono text-meta uppercase">
-                          {item}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </li>
-          );
-        })}
-      </ul>
+    <section ref={sectionRef} data-world="paper" className="pb-24">
+      <p className="px-4 pb-8 pt-10 font-mono text-meta uppercase md:px-10">
+        (03) — Capabilities
+      </p>
+      <div ref={trackRef} className="flex flex-col">
+        {capabilities.map((cap) => (
+          <article
+            key={cap.index}
+            data-caps-panel
+            className="flex flex-col justify-between gap-10 border-t hairline px-4 py-10 md:px-10"
+          >
+            <div>
+              <span className="font-mono text-meta text-vermilion">{cap.index}</span>
+              <h3 className="mt-4 font-display text-display-xl font-medium uppercase">
+                {cap.title}
+              </h3>
+            </div>
+            <div className="grid gap-6 md:grid-cols-2 md:gap-10">
+              <p className="max-w-md text-sm leading-relaxed opacity-80">{cap.description}</p>
+              <ul className="space-y-2 self-end">
+                {cap.items.map((item) => (
+                  <li key={item} className="border-b hairline pb-2 font-mono text-meta uppercase">
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </article>
+        ))}
+      </div>
     </section>
   );
 }

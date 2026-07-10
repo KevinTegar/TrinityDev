@@ -14,6 +14,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
   title: { default: `${SITE.name} — Digital Studio`, template: `%s — ${SITE.name}` },
   description: SITE.description,
+  icons: { icon: "/favicon.svg" },
   openGraph: {
     title: `${SITE.name} — Digital Studio`,
     description: SITE.tagline,

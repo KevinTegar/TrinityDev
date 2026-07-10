@@ -47,9 +47,13 @@ export default function Preloader() {
   return (
     <div
       ref={rootRef}
+      data-preloader
       aria-hidden="true"
       className="fixed inset-0 z-[90] flex items-end justify-between bg-ink p-6 text-paper md:p-10"
     >
+      <noscript>
+        <style>{`[data-preloader]{display:none}`}</style>
+      </noscript>
       <span className="font-display text-display-md uppercase">
         {SITE.wordmark}
         <span className="align-super text-[0.5em]">®</span>

@@ -110,9 +110,11 @@ Setelah rebuild awal, user meminta motion yang lebih immersive. Tiga paket diset
 
 **A — Kinetic Editorial**: velocity skew pada `[data-skew]` (baris Work, wordmark footer) via `SkewOnScroll` + `lib/motion/velocity.ts`; hero reveal per-karakter (SplitText `lines,chars` + mask, menunggu `document.fonts.ready`) + scale-out scrub saat scroll; `Marquee` jadi velocity-reactive (scroll-up membalik arah); film grain global (`Grain` + `.grain` CSS, SVG feTurbulence, z-60); menu overlay & page transition memakai panel kolom berjeda (3 panel menu, 4 panel curtain).
 
-**B — Scroll Cinema**: Manifesto ter-pin 120% dengan word-scrub + swell; Capabilities berubah dari accordion menjadi **panel horizontal ter-pin** (desktop + motion-ok saja — mobile/reduced-motion/no-JS tetap stacked list, gaya horizontal hanya di-set via gsap.matchMedia); cover case study `scrubZoom` 1.3×→rest di `ImageReveal`.
+**B — Scroll Cinema**: Manifesto ter-pin **280%** sebagai **typewriter scene** (revisi user dari word-scrub): teks mulai kosong, karakter muncul biner tanpa fade, caret vermilion berkedip mengikuti karakter terakhir (posisi via getBoundingClientRect — offsetLeft milik char relatif ke span kata SplitText), scrub lag 1s untuk rasa berbobot; Capabilities berubah dari accordion menjadi **panel horizontal ter-pin** (desktop + motion-ok saja — mobile/reduced-motion/no-JS tetap stacked list, gaya horizontal hanya di-set via gsap.matchMedia); cover case study `scrubZoom` 1.3×→rest di `ImageReveal`.
 
-**C — Aksen WebGL**: preview hover di daftar Work di-render `DistortedPreview` (**ogl**, bukan three.js) — transisi ripple antar cover + bulge mengikuti kecepatan kursor; dimuat via `next/dynamic` hanya bila WebGL2 + pointer fine + md+ + motion-ok; selain itu fallback `next/image` biasa.
+**C — Aksen WebGL** (revisi user): preview hover di daftar Work KEMBALI ke floating image preview klasik (`next/image` mengikuti kursor) — user lebih suka versi awal; percobaan `DistortedPreview` dan image trail dihapus. WebGL (**ogl**, bukan three.js) dipakai untuk **TrinityMark**: tetrahedron wireframe hairline di kolom kanan Manifesto, idle spin + terdorong scroll velocity, statis saat reduced-motion, hidden di mobile.
+
+**Footer wordmark**: huruf T-R-I-N-I-T-Y-D-E-V disebar `justify-between` selebar kontainer (text-[11vw]) — selalu pas, tidak pernah terpotong.
 
 Guardrail tidak berubah: semua motion di dalam `gsap.matchMedia(MOTION_OK)`, konten selalu terlihat tanpa JS, transform/opacity saja.
 

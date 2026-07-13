@@ -84,12 +84,16 @@ export default function Manifesto() {
     return () => mm.revert();
   }, []);
 
+  // The extra <div> is load-bearing: ScrollTrigger's pin re-parents the
+  // section into a pin-spacer, so React must own a stable wrapper node —
+  // otherwise route changes crash with removeChild on <main>.
   return (
-    <section
-      ref={sectionRef}
-      data-world="paper"
-      className="flex min-h-svh flex-col justify-center px-4 py-28 md:px-10"
-    >
+    <div>
+      <section
+        ref={sectionRef}
+        data-world="paper"
+        className="flex min-h-svh flex-col justify-center px-4 py-28 md:px-10"
+      >
       <p className="font-mono text-meta uppercase">(01) — Manifesto</p>
       <div className="mt-8 grid items-center gap-10 md:grid-cols-[1.15fr_0.85fr]">
         <p ref={textRef} className="relative max-w-4xl font-display text-display-lg font-medium">
@@ -101,6 +105,7 @@ export default function Manifesto() {
           <TrinityMark className="mx-auto w-full max-w-[24rem]" />
         </div>
       </div>
-    </section>
+      </section>
+    </div>
   );
 }

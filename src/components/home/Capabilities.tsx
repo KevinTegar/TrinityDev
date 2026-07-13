@@ -67,8 +67,12 @@ export default function Capabilities() {
     return () => mm.revert();
   }, []);
 
+  // The extra <div> is load-bearing: ScrollTrigger's pin re-parents the
+  // section into a pin-spacer, so React must own a stable wrapper node —
+  // otherwise route changes crash with removeChild on <main>.
   return (
-    <section ref={sectionRef} data-world="paper" className="pb-24">
+    <div>
+      <section ref={sectionRef} data-world="paper" className="pb-24">
       <p className="px-4 pb-8 pt-10 font-mono text-meta uppercase md:px-10">
         (03) — Capabilities
       </p>
@@ -98,6 +102,7 @@ export default function Capabilities() {
           </article>
         ))}
       </div>
-    </section>
+      </section>
+    </div>
   );
 }

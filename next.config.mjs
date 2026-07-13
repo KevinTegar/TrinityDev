@@ -8,6 +8,7 @@ const nextConfig = {
   },
   async redirects() {
     return [
+      { source: "/favicon.ico", destination: "/favicon.svg", permanent: true },
       { source: "/services", destination: "/studio", permanent: true },
       { source: "/team", destination: "/studio", permanent: true },
       { source: "/blog", destination: "/", permanent: true },
